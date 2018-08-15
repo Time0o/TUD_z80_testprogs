@@ -11,7 +11,7 @@ define create_progmem
   progmem_int=$(patsubst %.out,%.progmem_int,$(1)) ; \
   progmem_ext=$(patsubst %.out,%.progmem_ext,$(1)) ; \
   echo "compiling $$bin" ; \
-  hex2bin -p 00 -l 65536 -T 0xffff $(1) > /dev/null ; \
+  hex2bin -p 00 -l 10000 -T 0xffff $(1) > /dev/null ; \
   hexdump -v -e '"@%04_ax " 1/1 "%02x" "\n"' $$bin > $$progmem_int ; \
   sed -i -r '0,/^.* c9$$/{s/(.*) c9/\1 76/}' $$progmem_int ; \
   csplit $$progmem_int '/^@1000.*$$/' &> /dev/null ; \
